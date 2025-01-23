@@ -4,12 +4,17 @@ module.exports = {
     extend: {
       screens: {
         "sm-max": { max: "640px" },
-        desktop: "992px",
+        desktop: "900px",
+        tablet: {max: "900px"}
+      },
+      shadows : {
+        headerMenu: '#2F496D'
       },
       width: {
         calc: "calc(100% - 520px)",
       },
       colors: {
+        header: '#1D2126',
         primary: "#2F496D",
         error: "#f44336",
         success: "#4caf50",
@@ -25,9 +30,9 @@ module.exports = {
         '4': '16px',
         '5': '20px',
         '6': '24px',
-      },
-      fontFamily: {
-        raleway: ["'Raleway', sans-serif"],
+        '7': '28px',
+        '8': '32px',
+        '9': '34px',
       },
     },
   },
