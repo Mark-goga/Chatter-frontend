@@ -1,15 +1,25 @@
 import {Button, Stack, TextField} from '@mui/material';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import useGetMe from "../../hooks/useGetMe";
+import {useNavigate} from "react-router-dom";
 
 interface AuthProps {
 	submitLabel: string;
 	onSubmit: (cred: {email: string, password: string}) => Promise<void>;
 	children: React.ReactNode;
+	error?: string;
 }
 
-const Auth = ({onSubmit, submitLabel, children}: AuthProps) => {
+const Auth = ({onSubmit, submitLabel, children, error}: AuthProps) => {
 	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('')
+	const [password, setPassword] = useState<string>('');
+	const navigate = useNavigate();
+	const {data} = useGetMe();
+	useEffect(() => {
+		if (data) {
+			navigate('/');
+		}
+	}, [data, navigate]);
 
 	return (
 		<Stack spacing={3} sx={{
@@ -29,6 +39,7 @@ const Auth = ({onSubmit, submitLabel, children}: AuthProps) => {
 				label="password"
 				variant="outlined" value={password}
 				onChange={(e) => setPassword(e.target.value)}/>
+			<p className={'text-error text-sm font-medium mt-2 text-center '}>{error}</p>
 			<Button variant="outlined" onClick={() => onSubmit({email, password})}>{submitLabel}</Button>
 		{children}
 		</Stack>
