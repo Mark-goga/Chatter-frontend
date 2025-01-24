@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
 
-const useClickOutSide = (ref: React.RefObject<HTMLElement | HTMLDivElement | null>) => {
+const useClickOutSide = (
+	ref: React.RefObject<HTMLElement | HTMLDivElement | null>,
+	modalRef: React.RefObject<HTMLElement | HTMLDivElement | null>) => {
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		const closeModal = (e: MouseEvent) => {
-			if (ref?.current && !ref.current.contains(e.target as Node)) {
+			if (ref?.current && modalRef?.current && !ref.current.contains(e.target as Node) && !modalRef.current.contains(e.target as Node)) {
 				setIsOpen(false);
 			}
 		};
@@ -17,7 +20,7 @@ const useClickOutSide = (ref: React.RefObject<HTMLElement | HTMLDivElement | nul
 		return () => {
 			document.removeEventListener("mousedown", closeModal);
 		};
-	}, [isOpen, ref]);
+	}, [isOpen, ref, modalRef]);
 
 	return { isOpen, setIsOpen };
 };

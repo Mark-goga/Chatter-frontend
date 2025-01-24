@@ -1,32 +1,27 @@
 import Branding from "./Branding";
 import BurgerMenu from "./BurgerMenu";
 import Settings from "./Settings";
+import ListItem from "./ListItem";
+import router from "../Routes";
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
-
-	const navigate = (s: string) => s;
 
 	return (
 		<div className='bg-header flex p-7 justify-between h-[100px] '>
 			<BurgerMenu pages={pages}/>
 			<div className='flex gap-6 tablet:gap-0'>
-				<Branding/>
+				<Branding handleClick={() => router.navigate('/')}/>
 				<div className='flex items-center justify-center gap-2'>
 					<div className='tablet:hidden'>
 						{pages.map((page) => (
-							<button className='hover:bg-gray-300 rounded-md p-2' key={page} onClick={() => {
-								navigate(`/${page}`)
-							}}>
-								<p className='text-xl'>{page}</p>
-							</button>
+							<ListItem key={page} item={page} func={() => {}} />
 						))}
 					</div>
 				</div>
 			</div>
-			<Settings settings={settings}/>
+			<Settings setting={'Logout'}/>
 		</div>
 	);
 }

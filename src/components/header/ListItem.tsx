@@ -6,7 +6,9 @@ interface Props {
 
 function ListItem({item, func}: Props) {
 	return (
-		<button className='hover:bg-gray-300 rounded-md p-2' onClick={() => func()}>
+		<button className='hover:bg-gray-300 rounded-md p-2' onClick={() => {
+			func()
+		}}>
 			<p className='text-xl'>{item}</p>
 		</button>
 	);

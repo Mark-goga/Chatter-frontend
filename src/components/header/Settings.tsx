@@ -3,15 +3,24 @@ import {useRef} from "react";
 import DropMenu from "./DropMenu";
 import ListItem from "./ListItem";
 import IsModalOpen from "./IsModalOpen";
+import useLogout from "../../hooks/useLogout";
+import onLogout from "../../utils/onLogout";
 
 interface Props {
-	settings: string[];
+	setting: string;
 }
 
-function Settings({settings}: Props) {
+function Settings({setting}: Props) {
 	const settingsRef = useRef<HTMLDivElement>(null);
+	const modalRef = useRef<HTMLDivElement>(null);
 
-	const {isOpen, setIsOpen} = useClickOutSide(settingsRef);
+	const {isOpen, setIsOpen} = useClickOutSide(settingsRef, modalRef);
+	const {logout} = useLogout();
+
+	const handleLogout = async () => {
+		await logout();
+		onLogout();
+	}
 
 	return (
 		<div className='relative flex items-center'>
@@ -19,12 +28,9 @@ function Settings({settings}: Props) {
 				<img src={''} alt={'A'}></img>
 			</div>
 
-			<IsModalOpen isModalOpen={isOpen}>
-				<DropMenu additionalStyle={'left-[-200%] bottom-[-450%]'}>
-					{settings.map((settings) => (
-						<ListItem key={settings} item={settings} func={() => {
-						}}/>
-					))}
+			<IsModalOpen  isModalOpen={isOpen}>
+				<DropMenu ref={modalRef} additionalStyle={'top-full right-1/4'}>
+					<ListItem item={setting} func={handleLogout} />
 				</DropMenu>
 			</IsModalOpen>
 

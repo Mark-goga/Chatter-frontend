@@ -12,7 +12,8 @@ interface Props {
 function BurgerMenu({pages}: Props) {
 
 	const burgerMenuRef = useRef<HTMLDivElement>(null);
-	const {isOpen, setIsOpen} = useClickOutSide(burgerMenuRef);
+	const modalRef = useRef<HTMLDivElement>(null);
+	const {isOpen, setIsOpen} = useClickOutSide(burgerMenuRef, modalRef);
 
 	return (
 		<div className='tablet:block desktop:hidden relative'>
@@ -21,7 +22,7 @@ function BurgerMenu({pages}: Props) {
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen}>
-				<DropMenu additionalStyle={'left-[-8px] bottom-[-320%]'}>
+				<DropMenu ref={modalRef} additionalStyle={'top-full left-1/4'}>
 					{pages.map((page) => (
 						<ListItem key={page} item={page} func={() => {
 						}}/>

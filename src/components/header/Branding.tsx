@@ -1,9 +1,13 @@
 import { IoMdChatboxes } from "react-icons/io";
 
-function Branding() {
+interface Props {
+	handleClick: () => void;
+}
+
+function Branding({handleClick}: Props) {
 
 	return (
-		<div className='flex items-center justify-center gap-2'>
+		<div className='cursor-pointer flex items-center justify-center gap-2' onClick={() => handleClick()}>
 			<div >
 				<IoMdChatboxes size={30}/>
 			</div>
