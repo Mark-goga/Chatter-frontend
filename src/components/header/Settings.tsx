@@ -19,17 +19,18 @@ function Settings({setting}: Props) {
 
 	const handleLogout = async () => {
 		await logout();
+		setIsOpen(false);
 		onLogout();
 	}
 
 	return (
 		<div className='relative flex items-center'>
-			<div ref={settingsRef} className='size-9 rounded-full bg-gray-300' onClick={() => setIsOpen(true)}>
+			<div ref={settingsRef} className='size-9 rounded-full bg-gray-300' onClick={() => setIsOpen(!isOpen)}>
 				<img src={''} alt={'A'}></img>
 			</div>
 
 			<IsModalOpen  isModalOpen={isOpen}>
-				<DropMenu ref={modalRef} additionalStyle={'top-full right-1/4'}>
+				<DropMenu ref={modalRef} isOpen={isOpen} additionalStyle={'top-full right-1/4'}>
 					<ListItem item={setting} func={handleLogout} />
 				</DropMenu>
 			</IsModalOpen>

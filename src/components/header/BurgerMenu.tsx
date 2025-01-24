@@ -4,9 +4,11 @@ import ListItem from "./ListItem";
 import DropMenu from "./DropMenu";
 import useClickOutSide from '../../hooks/useClickOutSide'
 import IsModalOpen from "./IsModalOpen";
+import Page from "../../interface/Page.interface";
+import router from "../Routes";
 
 interface Props {
-	pages: string[]
+	pages: Page[]
 }
 
 function BurgerMenu({pages}: Props) {
@@ -16,15 +18,17 @@ function BurgerMenu({pages}: Props) {
 	const {isOpen, setIsOpen} = useClickOutSide(burgerMenuRef, modalRef);
 
 	return (
-		<div className='tablet:block desktop:hidden relative'>
-			<div onClick={() => setIsOpen(true)} ref={burgerMenuRef}>
+		<div className='tablet:flex desktop:hidden relative items-center'>
+			<div onClick={() => setIsOpen(!isOpen)} ref={burgerMenuRef}>
 				<RxHamburgerMenu size={30}/>
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen}>
-				<DropMenu ref={modalRef} additionalStyle={'top-full left-1/4'}>
+				<DropMenu isOpen={isOpen} ref={modalRef} additionalStyle={`top-full left-1/4`}>
 					{pages.map((page) => (
-						<ListItem key={page} item={page} func={() => {
+						<ListItem key={page.title} item={page} func={() => {
+							setIsOpen(false);
+							router.navigate(page.path);
 						}}/>
 					))}
 				</DropMenu>

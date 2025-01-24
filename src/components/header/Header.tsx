@@ -1,27 +1,32 @@
 import Branding from "./Branding";
 import BurgerMenu from "./BurgerMenu";
 import Settings from "./Settings";
-import ListItem from "./ListItem";
 import router from "../Routes";
+import Page from "../../interface/Page.interface";
+import {useReactiveVar} from "@apollo/client";
+import authenticatedVar from "../../constants/authenticated";
+import PageList from "./PageList";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages: Page[] = [
+	{title: 'Home', path: '/'}
+];
+const unauthenticatedPages: Page[] = [
+	{title: 'Login', path: '/login'},
+	{title: 'Register', path: '/register'},
+]
 
 function Header() {
 
+	const authenticated = useReactiveVar(authenticatedVar);
+
 	return (
 		<div className='bg-header flex p-7 justify-between h-[100px] '>
-			<BurgerMenu pages={pages}/>
+			<BurgerMenu pages={authenticated ? pages : unauthenticatedPages} />
 			<div className='flex gap-6 tablet:gap-0'>
-				<Branding handleClick={() => router.navigate('/')}/>
-				<div className='flex items-center justify-center gap-2'>
-					<div className='tablet:hidden'>
-						{pages.map((page) => (
-							<ListItem key={page} item={page} func={() => {}} />
-						))}
-					</div>
-				</div>
+				<Branding handleClick={() => authenticated ? router.navigate('/'): router.navigate('/login')}/>
+				<PageList pages={authenticated ? pages : unauthenticatedPages} />
 			</div>
-			<Settings setting={'Logout'}/>
+			{authenticated && <Settings setting={'Logout'}/>}
 		</div>
 	);
 }
