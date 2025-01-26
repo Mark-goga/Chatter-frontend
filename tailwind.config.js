@@ -24,10 +24,12 @@ module.exports = {
       shadows : {
         headerMenu: '#2F496D'
       },
-      width: {
-        calc: "calc(100% - 520px)",
+      height: {
+        'screen-minus-100': 'calc(100vh - 100px)',
       },
       colors: {
+        scrollbar: '#4a4a4a',
+        scrollbarHover: '#6b6b6b',
         header: '#1D2126',
         primary: "#2F496D",
         error: "#f44336",
@@ -50,5 +52,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
 }

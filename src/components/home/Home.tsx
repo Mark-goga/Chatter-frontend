@@ -1,7 +1,11 @@
+import FriendList from "../FriendList";
+
 function Home() {
 	return (
-		<div>
-			<h1>Home</h1>
+		<div className="flex flex-col h-screen-minus-100">
+			{/*<div className="flex flex-1 overflow-hidden">*/}
+				<FriendList/>
+			{/*</div>*/}
 		</div>
 	);
 }

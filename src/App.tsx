@@ -20,11 +20,11 @@ const App = () => {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Header />
-        <Container>
+        {/*<Container>*/}
           <Guard>
             <RouterProvider router={router} />
           </Guard>
-        </Container>
+        {/*</Container>*/}
         <Snackbar />
       </ThemeProvider>
     </ApolloProvider>
