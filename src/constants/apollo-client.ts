@@ -1,8 +1,25 @@
-import {ApolloClient, HttpLink, InMemoryCache} from '@apollo/client';
+import {ApolloClient, HttpLink, InMemoryCache, makeVar} from '@apollo/client';
 import { API_URL } from './urls';
 import {onError} from "@apollo/client/link/error";
 import excludedRoutes from "./excluded-routes";
 import onLogout from "../utils/onLogout";
+import {Themas} from "./themes";
+
+export const themeVar = makeVar((localStorage.getItem('theme') as Themas) || 'light');
+
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        theme: {
+          read() {
+            return themeVar();
+          },
+        },
+      },
+    },
+  },
+});
 
 const logoutLink = onError((error) => {
   if(error.graphQLErrors?.length &&
@@ -16,7 +33,7 @@ const logoutLink = onError((error) => {
 const httpLink = new HttpLink({uri: `${API_URL}/graphql`});
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache,
   link: logoutLink.concat(httpLink),
 })
 
