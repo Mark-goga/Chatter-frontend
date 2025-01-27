@@ -18,7 +18,7 @@ function BurgerMenu({pages}: Props) {
 	const {isOpen, setIsOpen} = useClickOutSide(burgerMenuRef, modalRef);
 
 	return (
-		<div className='tablet:flex desktop:hidden relative items-center'>
+		<div className='tablet:flex desktop:hidden relative items-center text-primary'>
 			<div onClick={() => setIsOpen(!isOpen)} ref={burgerMenuRef}>
 				<RxHamburgerMenu size={30}/>
 			</div>

@@ -20,14 +20,14 @@ function Header() {
 	const authenticated = useReactiveVar(authenticatedVar);
 
 	return (
-		<div className='bg-header flex p-7 justify-between h-[100px] '>
+		<header className='bg-background border-b border-neutral flex p-6 justify-between h-[90px] '>
 			<BurgerMenu pages={authenticated ? pages : unauthenticatedPages} />
 			<div className='flex gap-6 tablet:gap-0'>
 				<Branding handleClick={() => authenticated ? router.navigate('/'): router.navigate('/login')}/>
 				<PageList pages={authenticated ? pages : unauthenticatedPages} />
 			</div>
 			{authenticated && <Settings setting={'Logout'}/>}
-		</div>
+		</header>
 	);
 }
 
