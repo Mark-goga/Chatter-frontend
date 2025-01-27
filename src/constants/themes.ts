@@ -17,11 +17,11 @@ export const themes = {
 	},
 	cyberpunk: {
 		'--color-background': '#ffd700',
-		'--color-text': '#ff00ff',
+		'--color-text': '#ff0099',
 		'--color-primary': '#00ffff',
 		'--color-secondary': '#ff4500',
 		'--color-accent': '#ff0099',
-		'--color-neutral': '#202020',
+		'--color-neutral': '#ccbc4b',
 	},
 	winter: {
 		'--color-background': '#eff6ff',
