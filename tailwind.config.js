@@ -19,7 +19,8 @@ module.exports = {
       screens: {
         "sm-max": { max: "640px" },
         desktop: "900px",
-        tablet: {max: "900px"}
+        tablet: {max: "900px"},
+        '360': {min: '360px'},
       },
       shadows : {
         headerMenu: '#2F496D'
@@ -35,6 +36,8 @@ module.exports = {
         text: "var(--color-text)",
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        neutral: "var(--color-neutral)",
         error: "#f44336",
         success: "#4caf50",
       },

@@ -1,4 +1,3 @@
-import { CssBaseline} from '@mui/material';
 import {RouterProvider} from 'react-router-dom';
 import router from './components/Routes';
 import {ApolloProvider} from '@apollo/client';
@@ -13,7 +12,6 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider>
-        <CssBaseline />
         <Header />
         {/*<Container>*/}
           <Guard>
