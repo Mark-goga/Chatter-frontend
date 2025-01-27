@@ -5,3 +5,6 @@
 body {
 	background-color: var(--color-background);
 }
+#root {
+	height: 100dvh;
+}

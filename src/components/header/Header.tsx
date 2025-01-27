@@ -8,11 +8,13 @@ import authenticatedVar from "../../constants/authenticated";
 import PageList from "./PageList";
 
 const pages: Page[] = [
-	{title: 'Home', path: '/'}
+	{title: 'Home', path: '/'},
+	{title: 'Theme', path: '/themeSelector'},
 ];
 const unauthenticatedPages: Page[] = [
 	{title: 'Login', path: '/login'},
 	{title: 'Register', path: '/register'},
+	{title: 'Theme', path: '/themeSelector'},
 ]
 
 function Header() {

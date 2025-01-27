@@ -1,49 +1,72 @@
-import {Button, Stack, TextField} from '@mui/material';
-import {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import useGetMe from "../../hooks/useGetMe";
-import {useNavigate} from "react-router-dom";
+import AuthSvg from "./AuthSvg";
 
 interface AuthProps {
 	submitLabel: string;
-	onSubmit: (cred: {email: string, password: string}) => Promise<void>;
+	onSubmit: (cred: { email: string; password: string }) => Promise<void>;
 	children: React.ReactNode;
 	error?: string;
 }
 
-const Auth = ({onSubmit, submitLabel, children, error}: AuthProps) => {
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
+const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const navigate = useNavigate();
-	const {data} = useGetMe();
+	const { data } = useGetMe();
+
+	const inputStyle = 'w-full p-3 pl-9 bg-secondary border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent';
+
 	useEffect(() => {
 		if (data) {
-			navigate('/');
+			navigate("/");
 		}
 	}, [data, navigate]);
 
 	return (
-		<Stack spacing={3} sx={{
-			height: '100vh', maxWidth: {
-				xs: '70%',
-				md: '30%',
-			}, margin: '0 auto', justifyContent: 'center'
-		}}>
-			<TextField
-				type="email"
-				label="Email"
-				variant="outlined"
-				value={email}
-				onChange={(e) => setEmail(e.target.value)}/>
-			<TextField
-				type="password"
-				label="password"
-				variant="outlined" value={password}
-				onChange={(e) => setPassword(e.target.value)}/>
-			<p className={'text-error text-sm font-medium mt-2 text-center '}>{error}</p>
-			<Button variant="outlined" onClick={() => onSubmit({email, password})}>{submitLabel}</Button>
-		{children}
-		</Stack>
-	);
-};
+		<div
+			className="flex h-screen-minus-100 flex-col max-w-3xl w-[70%] md:w-[50%] xl:w-[30%] mx-auto justify-center text-text">
 
-export default Auth;
+			<p className='ml-3 mb-1'>Email</p>
+			<div className='relative mb-4'>
+				<AuthSvg><MdOutlineMailOutline /></AuthSvg>
+				<input
+					type="email"
+					placeholder="youremail@example.com"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					className={`${inputStyle}`}
+				/>
+			</div>
+
+			<p className='ml-3 mb-1'>Password</p>
+			<div className='relative mb-4'>
+				<AuthSvg ><RiLockPasswordLine /></AuthSvg>
+				<input
+					type="password"
+					placeholder="Enter your password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					className={`${inputStyle}`}
+				/>
+			</div>
+				{error && (
+					<p className="text-error text-sm font-medium my-1 text-center">
+						{error}
+					</p>
+				)}
+				<button
+					onClick={() => onSubmit({email, password})}
+					className="w-full bg-primary text-text font-semibold py-3 rounded-lg hover:bg-primary-dark transition-colors"
+				>
+					{submitLabel}
+				</button>
+				<div className="mt-4">{children}</div>
+			</div>
+			);
+			};
+
+			export default Auth;

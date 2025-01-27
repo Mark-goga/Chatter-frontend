@@ -43,8 +43,8 @@ const Signup = () => {
           submitLabel={'Sign up'}
           error={error}
     >
-      <Link to={'/login'} style={{ alignSelf: 'center' }}>
-        <MUiLink>login</MUiLink>
+      <Link to={'/login'} className='text-text text-center underline'>
+        <p>login</p>
       </Link>
     </Auth>
   );
