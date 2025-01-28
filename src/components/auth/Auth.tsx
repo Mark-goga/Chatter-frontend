@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {RiLockPasswordLine} from "react-icons/ri";
+import {MdOutlineMailOutline} from "react-icons/md";
+import {useNavigate} from "react-router-dom";
 import useGetMe from "../../hooks/useGetMe";
 import AuthSvg from "./AuthSvg";
 
@@ -66,7 +66,6 @@ const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
 				</button>
 				<div className="mt-4">{children}</div>
 			</div>
-			);
-			};
-
-			export default Auth;
+	);
+};
+export default Auth;

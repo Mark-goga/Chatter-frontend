@@ -23,7 +23,7 @@ function BurgerMenu({pages}: Props) {
 				<RxHamburgerMenu size={30}/>
 			</div>
 
-			<IsModalOpen isModalOpen={isOpen}>
+			<IsModalOpen isModalOpen={isOpen} time={200}>
 				<DropMenu isOpen={isOpen} ref={modalRef} additionalStyle={`top-full left-1/4`}>
 					{pages.map((page) => (
 						<ListItem key={page.title} item={page} func={() => {

@@ -12,19 +12,19 @@ module.exports = {
           '100%': { opacity: 0, transform: 'translateY(-20px)' },
         },
         modalOpen: {
-          '0%': { opacity: 0, marginTop: '-20px' },
+          '0%': { opacity: 0, marginTop: '-5px' },
           '100%': { opacity: 1, marginTop: '0' },
         },
         modalClose: {
           '0%': { opacity: 1, marginTop: '0' },
-          '100%': { opacity: 0, marginTop: '-20px' },
+          '100%': { opacity: 0, marginTop: '-5px' },
         },
       },
       animation: {
         fadeIn: 'fadeIn 0.3s ease-out',
         fadeOut: 'fadeOut 0.3s ease-out',
-        modalOpen: 'modalOpen 0.3s ease-out',
-        modalClose: 'modalClose 0.3s ease-out',
+        modalOpen: 'modalOpen 0.1s ease-out',
+        modalClose: 'modalClose 0.1s ease-out',
       },
       screens: {
         "sm-max": { max: "640px" },
@@ -41,7 +41,6 @@ module.exports = {
       colors: {
         scrollbar: '#4a4a4a',
         scrollbarHover: '#6b6b6b',
-        header: '#1D2126',
         background: "var(--color-background)",
         text: "var(--color-text)",
         primary: "var(--color-primary)",

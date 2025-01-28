@@ -8,7 +8,7 @@ interface AuthSvgProps {
 
 const AuthSvg = ({ children, className = "", size = 30 }:AuthSvgProps ) => {
 	return React.cloneElement(children, {
-		className: `absolute top-1/2 translate-y-[-50%] pl-2 ${className}`,
+		className: `absolute top-1/2 translate-y-[-50%] pl-2 text-primary ${className}`,
 		size,
 	});
 };

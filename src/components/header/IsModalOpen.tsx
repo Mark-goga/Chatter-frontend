@@ -3,9 +3,10 @@ import React, {useEffect, useState} from 'react';
 interface Props {
 	children: React.ReactNode;
 	isModalOpen: boolean;
+	time: number;
 }
 
-function IsModalOpen({ isModalOpen, children }: Props) {
+function IsModalOpen({ isModalOpen, children, time }: Props) {
 
 	const [showContent, setShowContent] = useState<boolean>(isModalOpen);
 
@@ -14,7 +15,7 @@ function IsModalOpen({ isModalOpen, children }: Props) {
 		if (isModalOpen) {
 			setShowContent(true);
 		} else {
-			timeout = setTimeout(() => setShowContent(false), 200);
+			timeout = setTimeout(() => setShowContent(false), time);
 		}
 		return () => clearTimeout(timeout);
 	}, [isModalOpen]);

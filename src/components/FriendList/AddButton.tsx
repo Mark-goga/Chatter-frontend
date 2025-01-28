@@ -14,10 +14,10 @@ function AddButton() {
 				onClick={() => setIsOpen(!isOpen)}
 				ref={ref}
 				className="px-4 py-2 bg-accent text-text rounded-full shadow-md hover:bg-neutral transition-colors duration-300 w-max ml-3">
-				<span>Add Friend</span>
+				<span>Add Chat</span>
 			</button>
 
-			<IsModalOpen isModalOpen={isOpen}>
+			<IsModalOpen isModalOpen={isOpen} time={75}>
 				<AddFriendsModal ref={modalRef} isOpen={isOpen} />
 			</IsModalOpen>
 		</>

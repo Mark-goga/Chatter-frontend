@@ -45,7 +45,7 @@ function Settings({setting, userPhoto}: Props) {
 				<UserProfile avatar={userPhoto} name={userEmail ? userEmail : 'Avatar'} />
 			</div>
 
-			<IsModalOpen isModalOpen={isOpen}>
+			<IsModalOpen isModalOpen={isOpen} time={200}>
 				<DropMenu ref={modalRef} isOpen={isOpen} additionalStyle={'top-full right-1/4'}>
 					<ListItem item={setting} func={() => {
 						setIsOpen(false);
