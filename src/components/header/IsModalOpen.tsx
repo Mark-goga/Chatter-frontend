@@ -18,7 +18,7 @@ function IsModalOpen({ isModalOpen, children, time }: Props) {
 			timeout = setTimeout(() => setShowContent(false), time);
 		}
 		return () => clearTimeout(timeout);
-	}, [isModalOpen]);
+	}, [isModalOpen, time]);
 
 	return showContent ? <div className={!showContent ? 'animate-fadeOut' : ''}>{children}</div> : null;
 }

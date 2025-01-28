@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import IsModalOpen from "../header/IsModalOpen";
 import useClickOutSide from "../../hooks/useClickOutSide";
 import AddFriendsModal from "./AddFriendsModal";
+import ModalBlurBackground from "../ModalBlurBackground";
 
 function AddButton() {
 	const modalRef = useRef<HTMLDivElement>(null);
@@ -17,9 +18,11 @@ function AddButton() {
 				<span>Add Chat</span>
 			</button>
 
-			<IsModalOpen isModalOpen={isOpen} time={75}>
-				<AddFriendsModal ref={modalRef} isOpen={isOpen} />
-			</IsModalOpen>
+			<ModalBlurBackground isOpen={isOpen}>
+				<IsModalOpen isModalOpen={isOpen} time={75}>
+					<AddFriendsModal ref={modalRef} isOpen={isOpen} setIsOpen={setIsOpen} />
+				</IsModalOpen>
+			</ModalBlurBackground>
 		</>
 	);
 }

@@ -1,12 +1,26 @@
 import {forwardRef, useState} from "react";
+import {useCreateChat} from "../../hooks/useCreateChat";
 
 interface AddFriendsModalProps {
 	isOpen: boolean;
+	setIsOpen: (isOpen:boolean) => void;
 }
 
-const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpen}, ref) => {
+const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpen, setIsOpen}, ref) => {
 	const [isPrivate, setIsPrivate] = useState<boolean>(true);
-	const handleSave = () => {};
+	const [name, setName] = useState<string>('');
+	const [createChat] = useCreateChat();
+
+	const handleSave = () => {
+		createChat({
+			variables: {
+				createChatInput: {
+					isPrivate,
+					name: name || undefined
+				}
+			}
+		})
+	};
 
 	return (
 		<div ref={ref} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[500px] h-[250px] flex
@@ -60,13 +74,17 @@ const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpe
 							<input
 								type="text"
 								placeholder="Name"
+								onChange={(e) => setName(e.target.value)}
 								className="w-full bg-neutral rounded-lg border border-primary p-2 pl-4 outline-none text-text placeholder-gray-500"
 							/>
 						</div>
 					)}
 
 					<button
-						onClick={() => handleSave()}
+						onClick={() => {
+							handleSave()
+							setIsOpen(false)
+						}}
 						className="w-full bg-primary text-background py-2 rounded-lg font-semibold hover:bg-opacity-90 transition"
 					>
 						Save
