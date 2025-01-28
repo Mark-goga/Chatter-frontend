@@ -8,6 +8,8 @@ import onLogout from "../../utils/onLogout";
 import {snackVar} from "../../constants/snack";
 import {UNKNOWN_ERROR_MESSAGE} from "../../constants/errors";
 import {FaUserCircle} from "react-icons/fa";
+import UserProfile from "../UserProfile";
+import useGetMe from "../../hooks/useGetMe";
 
 interface Props {
 	setting: string;
@@ -20,6 +22,8 @@ function Settings({setting, userPhoto}: Props) {
 
 	const {isOpen, setIsOpen} = useClickOutSide(settingsRef, modalRef);
 	const {logout} = useLogout();
+	const {data} = useGetMe();
+	const userEmail = data?.me.email;
 
 	const handleLogout = async () => {
 		try {
@@ -32,17 +36,13 @@ function Settings({setting, userPhoto}: Props) {
 	}
 
 	return (
-		<div className='relative flex items-center'>
+		<div className='size-12 relative flex items-center'>
 			<div
 				ref={settingsRef}
-				className="size-9 rounded-full bg-gray-300 cursor-pointer"
+				className="rounded-full cursor-pointer size-full"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				{userPhoto ? (
-					<img src={userPhoto} alt="User" className="rounded-full"/>
-				) : (
-					<FaUserCircle className="w-full h-full text-gray-500"/>
-				)}
+				<UserProfile avatar={userPhoto} name={userEmail ? userEmail : 'Avatar'} />
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen}>

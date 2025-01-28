@@ -28,7 +28,7 @@ const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
 
 	return (
 		<div
-			className="flex h-screen-minus-100 flex-col max-w-3xl w-[70%] md:w-[50%] xl:w-[30%] mx-auto justify-center text-text">
+			className="flex h-screen-minus-90 flex-col max-w-3xl w-[70%] md:w-[50%] xl:w-[30%] mx-auto justify-center text-text">
 
 			<p className='ml-3 mb-1'>Email</p>
 			<div className='relative mb-4'>

@@ -1,3 +1,6 @@
+import AddButton from "./AddButton";
+import FriendsListItem from "./FriendsListItem";
+
 interface Friend {
 	id: number;
 	name: string;
@@ -96,30 +99,12 @@ const friends: Friend[] = [
 export default function FriendList() {
 	return (
 		<div
-			className="flex flex-col h-full w-full max-w-xs bg-gray-900 shadow-md overflow-y-auto scrollbar-thin scrollbar-thumb-scrollbar scrollbar-track-transparent scrollbar-thumb-rounded-full hover:scrollbar-thumb-scrollbarHover">
-			<div className="p-4 text-lg text-gray-200 font-semibold">Friends</div>
-			<div className="divide-y divide-gray-700">
+			className="flex flex-col h-full w-full max-w-[400px] bg-background shadow-2xl sm-max:max-w-full pt-4">
+			<AddButton />
+			<div className="divide-y my-2 divide-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent scrollbar-thumb-rounded-full hover:scrollbar-thumb-scrollbarHover">
 				{friends.map((friend) => (
-					<div key={friend.id} className="flex items-center p-4 hover:bg-gray-800 cursor-pointer">
-						{friend.avatar ? (
-							<img src={friend.avatar} alt={friend.name} className="w-12 h-12 rounded-full mr-4"/>
-						) : (
-							<div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white mr-4">
-								{friend.name[0]}
-							</div>
-						)}
-						<div className="flex-1">
-							<h3 className="text-sm font-semibold text-gray-100">{friend.subtext}</h3>
-							<p className="text-sm text-gray-400">{friend.message}</p>
-						</div>
-					</div>
+					<FriendsListItem key={friend.id} message={friend.message} name={friend.name} subtext={friend.subtext} avatar={friend.avatar} />
 				))}
-			</div>
-			<div className="p-4 flex justify-center">
-				<button
-					className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-full shadow-md hover:bg-purple-700">
-					<span className="mr-2">Add Friend</span>
-				</button>
 			</div>
 		</div>
 	);
