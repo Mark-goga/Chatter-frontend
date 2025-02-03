@@ -13,11 +13,9 @@ const App = () => {
     <ApolloProvider client={client}>
       <ThemeProvider>
         <Header />
-        {/*<Container>*/}
           <Guard>
             <RouterProvider router={router} />
           </Guard>
-        {/*</Container>*/}
         <Snackbar />
       </ThemeProvider>
     </ApolloProvider>

@@ -17,6 +17,7 @@ const documents = {
     "\n    fragment ChatFragment on Chat {\n        _id\n        userId\n        isPrivate\n        userIds\n        name\n    }\n": types.ChatFragmentFragmentDoc,
     "\n\tmutation CreateChat($createChatInput: CreateChatInput!) {\n\t\tcreateChat(createChatInput: $createChatInput) {\n\t\t\t\t...ChatFragment\n    }\n\t}\n": types.CreateChatDocument,
     "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n": types.CreateUserDocument,
+    "\n\tquery chat($_id: String!) {\n\t\t\tchat(_id: $_id) {\n\t\t\t\t\t...ChatFragment\n\t\t\t}\n\t}\n": types.ChatDocument,
     "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n": types.ChatsDocument,
     "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t}\n\t}\n": types.MeDocument,
 };
@@ -47,6 +48,10 @@ export function graphql(source: "\n\tmutation CreateChat($createChatInput: Creat
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n"): (typeof documents)["\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery chat($_id: String!) {\n\t\t\tchat(_id: $_id) {\n\t\t\t\t\t...ChatFragment\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tquery chat($_id: String!) {\n\t\t\tchat(_id: $_id) {\n\t\t\t\t\t...ChatFragment\n\t\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -28,6 +28,7 @@ module.exports = {
       },
       screens: {
         "sm-max": { max: "640px" },
+        "sm-min": { min: "640px" },
         desktop: "900px",
         tablet: {max: "900px"},
         '360': {min: '360px'},

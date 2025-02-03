@@ -1,10 +1,10 @@
-import FriendList from "../FriendList/FriendList";
+import ChatListWrapper from "../ChatListWrapper";
 
 function Home() {
 	return (
-		<div className="flex flex-col h-screen-minus-90">
-				<FriendList/>
-		</div>
+		<ChatListWrapper>
+			<h1 className='text-text text-4xl'>Home</h1>
+		</ChatListWrapper>
 	);
 }
 

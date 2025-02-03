@@ -12,8 +12,22 @@ export default function FriendList() {
 			<AddButton />
 			<div className="divide-y my-2 divide-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent scrollbar-thumb-rounded-full hover:scrollbar-thumb-scrollbarHover">
 				{chats.map((chats) => (
-					<FriendsListItem key={chats._id} name={chats.name} />
+					<FriendsListItem key={chats._id} name={chats.name} _id={chats._id} />
 				))}
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
 			</div>
 		</div>
 	);

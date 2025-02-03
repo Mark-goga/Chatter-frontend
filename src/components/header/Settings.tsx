@@ -7,7 +7,6 @@ import useLogout from "../../hooks/useLogout";
 import onLogout from "../../utils/onLogout";
 import {snackVar} from "../../constants/snack";
 import {UNKNOWN_ERROR_MESSAGE} from "../../constants/errors";
-import {FaUserCircle} from "react-icons/fa";
 import UserProfile from "../UserProfile";
 import useGetMe from "../../hooks/useGetMe";
 
