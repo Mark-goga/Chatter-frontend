@@ -11,6 +11,7 @@ const getChatDocuments = graphql(`
 `)
 
 const useGetChat = (variables: ChatQueryVariables) => {
+	// @ts-ignore
 	return useQuery(getChatDocuments, {variables});
 }
 export {useGetChat}
