@@ -1,3 +1,4 @@
+
 const extractErrorMessage = (e: any) => {
 	const errorMessage = e.graphQLErrors[0]?.extensions?.originalError?.message;
 	if (!errorMessage) {
