@@ -2,10 +2,13 @@ import AddButton from "./AddButton";
 import FriendsListItem from "./FriendsListItem";
 import {useGetChats} from "../../hooks/useGetChats";
 import React from "react";
+import { useParams} from "react-router-dom";
 
 function FriendList() {
 	const {data} = useGetChats();
 	const {chats = []} = data || {};
+	const params = useParams();
+	const chatId = params._id!;
 
 	return (
 		<div
@@ -13,22 +16,8 @@ function FriendList() {
 			<AddButton />
 			<div className="divide-y my-2 divide-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent scrollbar-thumb-rounded-full hover:scrollbar-thumb-scrollbarHover">
 				{chats.map((chats) => (
-					<FriendsListItem key={chats._id} name={chats.name} _id={chats._id} />
-				))}
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
-				<FriendsListItem name={'none'} _id={'jgdfjghdf;g'} />
+					<FriendsListItem key={chats._id} name={chats.name} _id={chats._id} isSelected={chatId === chats._id}/>
+				)).reverse()}
 			</div>
 		</div>
 	);

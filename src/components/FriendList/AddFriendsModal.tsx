@@ -2,6 +2,7 @@ import {forwardRef, useState} from "react";
 import {useCreateChat} from "../../hooks/useCreateChat";
 import ErrorValidation from "../ErrorValidation";
 import {UNKNOWN_ERROR_MESSAGE} from "../../constants/errors";
+import {useNavigate} from "react-router-dom";
 
 interface AddFriendsModalProps {
 	isOpen: boolean;
@@ -9,6 +10,7 @@ interface AddFriendsModalProps {
 }
 
 const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpen, setIsOpen}, ref) => {
+	const navigate = useNavigate()
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 	const [error, setError] = useState("")
 	const [name, setName] = useState<string>('');
@@ -27,20 +29,20 @@ const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpe
 			return
 		}
 		try {
-			await createChat({
-			variables: {
-				createChatInput: {
-					isPrivate,
-					name: name
+			const {data} = await createChat({
+				variables: {
+					createChatInput: {
+						isPrivate,
+						name: name
+					}
 				}
-			}
-		})
-			handleClose()
+			})
+			handleClose();
+			navigate(`/chats/${data?.createChat._id}`)
 		} catch {
 			setError(UNKNOWN_ERROR_MESSAGE);
 		}
 	};
-
 
 	return (
 		<div ref={ref} className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[500px] h-[250px] flex
@@ -102,8 +104,8 @@ const AddFriendsModal = forwardRef<HTMLDivElement, AddFriendsModalProps>(({isOpe
 					)}
 
 					<button
-						onClick={() => {
-							handleSave()
+						onClick={async () => {
+							await handleSave()
 						}}
 						className="w-full bg-primary text-background py-2 rounded-lg font-semibold hover:bg-opacity-90 transition"
 					>

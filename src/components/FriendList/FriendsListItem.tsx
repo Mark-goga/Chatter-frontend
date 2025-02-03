@@ -7,9 +7,10 @@ interface FriendsListItemProps {
 		avatar?: string;
 		name: string;
 		_id: string;
+		isSelected?: boolean;
 }
 
-function FriendsListItem({avatar, name, _id}:FriendsListItemProps) {
+function FriendsListItem({avatar, name, _id, isSelected}:FriendsListItemProps) {
 	const navigate = useNavigate();
 
 	const handleNavigate = (id: string) => {
@@ -17,7 +18,7 @@ function FriendsListItem({avatar, name, _id}:FriendsListItemProps) {
 	}
 
 	return (
-		<div className="flex items-center p-4 hover:bg-neutral cursor-pointer" onClick={() => {handleNavigate(_id)}}>
+		<div className={`transition-colors flex items-center p-4 hover:bg-neutral cursor-pointer ${isSelected && 'bg-neutral'}`} onClick={() => {handleNavigate(_id)}}>
 			<div className='mr-4'>
 				<UserProfile avatar={avatar} name={name}/>
 			</div>

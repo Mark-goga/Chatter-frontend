@@ -3,11 +3,12 @@ import {useGetChat} from "../../hooks/useGetChat";
 import ChatListWrapper from "../ChatListWrapper";
 import ChatInput from "./ChatInput";
 import {useCreateMessage} from "../../hooks/useCreateMessage";
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useGetMessages} from "../../hooks/useGetMessages";
-
+import MessageList from "./MessageList";
 
 function Chat() {
+	const divRef = useRef<HTMLDivElement>(null);
 	const params = useParams();
 	const chatId: string = params._id!
 
@@ -25,18 +26,22 @@ function Chat() {
 		createMessage({variables: {createMessageInput: {content: message, chatId} } });
 		setMessage('');
 	}
-
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(e.target.value)
 	}
 
+	const scrollToBottom = () => divRef.current?.scrollIntoView();
+
+	useEffect(() => {
+		setMessage("");
+		scrollToBottom();
+	}, [messagesData, params]);
+
 	return (
 		<ChatListWrapper>
-			<div className="flex-col h-full justify-between hidden p-4 w-full sm-min:flex ">
+			<div className="flex-col h-full justify-between hidden p-4 w-full sm-min:flex">
 				<h1 className="text-lg text-text font-semibold">{chat?.name}</h1>
-				{messages.map((message) => (
-						<p className='text-text' key={message._id}>{message.content}</p>
-				))}
+				<MessageList messages={messages} ref={divRef} />
 				<ChatInput onChange={handleChange} onSubmit={handleSubmit} value={message} />
 			</div>
 		</ChatListWrapper>
