@@ -13,6 +13,7 @@ function ChatInput({value, onChange, onSubmit}: ChatInputProps) {
 				value={value}
 				type="text"
 				onChange={onChange}
+				onKeyDown={(event) => event.key === "Enter" && onSubmit()}
 				placeholder="Message"
 				className="flex-1 px-3 py-2 border-none outline-none text-text bg-transparent"
 			/>

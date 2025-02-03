@@ -1,8 +1,9 @@
 import AddButton from "./AddButton";
 import FriendsListItem from "./FriendsListItem";
 import {useGetChats} from "../../hooks/useGetChats";
+import React from "react";
 
-export default function FriendList() {
+function FriendList() {
 	const {data} = useGetChats();
 	const {chats = []} = data || {};
 
@@ -32,3 +33,4 @@ export default function FriendList() {
 		</div>
 	);
 }
+export default React.memo(FriendList);
