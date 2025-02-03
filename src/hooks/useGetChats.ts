@@ -10,7 +10,6 @@ const getChatsDocuments = graphql(`
 `)
 
 const useGetChats = () => {
-	// @ts-ignore
 	return useQuery(getChatsDocuments)
 }
 

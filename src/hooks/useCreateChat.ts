@@ -11,7 +11,6 @@ const createChatDocument = graphql(`
 `);
 
 const useCreateChat = () => {
-	// @ts-ignore
 	return useMutation(createChatDocument, {
 		update(cache, { data }) {
 			cache.modify({

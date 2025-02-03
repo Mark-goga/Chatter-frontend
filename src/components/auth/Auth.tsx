@@ -4,6 +4,7 @@ import {MdOutlineMailOutline} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import useGetMe from "../../hooks/useGetMe";
 import AuthSvg from "./AuthSvg";
+import ErrorValidation from "../ErrorValidation";
 
 interface AuthProps {
 	submitLabel: string;
@@ -53,11 +54,7 @@ const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
 					className={`${inputStyle}`}
 				/>
 			</div>
-				{error && (
-					<p className="text-error text-sm font-medium my-1 text-center">
-						{error}
-					</p>
-				)}
+				<ErrorValidation error={error} />
 				<button
 					onClick={() => onSubmit({email, password})}
 					className="w-full bg-primary text-text font-semibold py-3 rounded-lg hover:bg-primary-dark transition-colors"
