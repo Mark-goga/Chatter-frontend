@@ -14,10 +14,10 @@ const useCreateMessage = () => {
 	// @ts-ignore
 	return useMutation(createMessageDocument, {
 		update(cache, { data }) {
-			if(data?.createMessage) {
+			if (data?.createMessage) {
 				updateMessages(cache, data.createMessage);
 			}
-		}
-	})
+		},
+	});
 }
 export { useCreateMessage };

@@ -8,7 +8,6 @@ import {useGetMessages} from "../../hooks/useGetMessages";
 import MessageList from "./MessageList";
 import {IoArrowBackSharp} from "react-icons/io5";
 import useMessageCreated from "../../hooks/useMessageCreated";
-import {Message} from "../../gql/graphql";
 
 function Chat() {
 	const divRef = useRef<HTMLDivElement>(null);
@@ -22,11 +21,9 @@ function Chat() {
 
 	const [createMessage] = useCreateMessage();
 
-	const {data: existingMessages} = useGetMessages({chatId});
+	const { data: messages } = useGetMessages({ chatId });
 
-	const [messages, setMessages] = useState<Message[]>([]);
-
-	const {data: latestMessage} = useMessageCreated({chatId});
+	useMessageCreated({ chatId });
 
 	const scrollToBottom = () => divRef.current?.scrollIntoView();
 
@@ -38,19 +35,6 @@ function Chat() {
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setMessage(e.target.value)
 	}
-
-	useEffect(() => {
-		if(existingMessages) {
-			setMessages(existingMessages.messages)
-		}
-	}, [existingMessages]);
-
-	useEffect(() => {
-		const existingLatestMessage = messages[messages.length - 1]?._id;
-		if(latestMessage?.messageCreated && existingLatestMessage !== latestMessage.messageCreated._id) {
-			setMessages([...messages, latestMessage.messageCreated]);
-		}
-	}, [latestMessage, messages]);
 
 	useEffect(() => {
 		setMessage("");
@@ -68,12 +52,12 @@ function Chat() {
 						</div>
 						<h1 className="text-lg text-text font-semibold">{chat?.name}</h1>
 					</div>
-					<MessageList messages={[...messages].sort(
+					{messages && (<MessageList messages={[...messages.messages].sort(
 						(messageA, messageB) => (
 							new Date(messageA.createdAt).getTime() -
 							new Date(messageB.createdAt).getTime()
 						)
-					)} ref={divRef}/>
+					)} ref={divRef}/>)}
 					<ChatInput onChange={handleChange} onSubmit={handleSubmit} value={message}/>
 				</div>
 			)}

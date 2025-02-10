@@ -14,11 +14,11 @@ const messageCreatedDocument = graphql(`
 const useMessageCreated = (variables: SubscriptionMessageCreatedArgs) => {
 	return useSubscription(messageCreatedDocument, {
 		variables,
-		onData: ({client, data}) => {
-			if(data.data)	{
-				updateMessages(client.cache, data.data.messageCreated)
+		onData: ({ client, data }) => {
+			if (data.data) {
+				updateMessages(client.cache, data.data.messageCreated);
 			}
-		}
+		},
 	});
 }
 
