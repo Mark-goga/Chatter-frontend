@@ -8,6 +8,7 @@ import {useGetMessages} from "../../hooks/useGetMessages";
 import MessageList from "./MessageList";
 import {IoArrowBackSharp} from "react-icons/io5";
 import useMessageCreated from "../../hooks/useMessageCreated";
+import {Message} from "../../gql/graphql";
 
 function Chat() {
 	const divRef = useRef<HTMLDivElement>(null);
@@ -19,19 +20,18 @@ function Chat() {
 	const {data} = useGetChat({_id: chatId});
 	const {chat} = data || {};
 
-	const [createMessage] = useCreateMessage(chatId);
+	const [createMessage] = useCreateMessage();
 
-	const {data: messagesData} = useGetMessages({chatId});
-	const messages = messagesData?.messages || [];
+	const {data: existingMessages} = useGetMessages({chatId});
+
+	const [messages, setMessages] = useState<Message[]>([]);
 
 	const {data: latestMessage} = useMessageCreated({chatId});
 
-	console.log('last message' , latestMessage);
-
 	const scrollToBottom = () => divRef.current?.scrollIntoView();
 
-	const handleSubmit = () => {
-		createMessage({variables: {createMessageInput: {content: message, chatId} } });
+	const handleSubmit = async () => {
+		await createMessage({variables: {createMessageInput: {content: message, chatId} } });
 		setMessage('');
 		scrollToBottom();
 	}
@@ -40,9 +40,22 @@ function Chat() {
 	}
 
 	useEffect(() => {
+		if(existingMessages) {
+			setMessages(existingMessages.messages)
+		}
+	}, [existingMessages]);
+
+	useEffect(() => {
+		const existingLatestMessage = messages[messages.length - 1]?._id;
+		if(latestMessage?.messageCreated && existingLatestMessage !== latestMessage.messageCreated._id) {
+			setMessages([...messages, latestMessage.messageCreated]);
+		}
+	}, [latestMessage, messages]);
+
+	useEffect(() => {
 		setMessage("");
 		scrollToBottom();
-	}, [messagesData, params]);
+	}, [messages, params]);
 
 	return (
 		<ChatListWrapper>
@@ -55,7 +68,12 @@ function Chat() {
 						</div>
 						<h1 className="text-lg text-text font-semibold">{chat?.name}</h1>
 					</div>
-					<MessageList messages={messages} ref={divRef}/>
+					<MessageList messages={[...messages].sort(
+						(messageA, messageB) => (
+							new Date(messageA.createdAt).getTime() -
+							new Date(messageB.createdAt).getTime()
+						)
+					)} ref={divRef}/>
 					<ChatInput onChange={handleChange} onSubmit={handleSubmit} value={message}/>
 				</div>
 			)}
