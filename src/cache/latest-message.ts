@@ -3,17 +3,26 @@ import {Message} from "../gql/graphql";
 import {getChatsDocuments} from "../hooks/useGetChats";
 
 export const updateLatestMessage = (
-	cache: ApolloCache<any>, message: Message
+	cache: ApolloCache<any>,
+	message: Message
 ) => {
-	const chats = [...(cache.readQuery({query: getChatsDocuments})?.chats || [])];
-	const cacheChatIndex = chats.findIndex(chat => chat._id === message.chatId);
-
-	if (cacheChatIndex === -1) {
+	const chats = [
+		...(cache.readQuery({ query: getChatsDocuments })?.chats || []),
+	];
+	const cachedChatIndex = chats.findIndex(
+		(chat) => chat._id === message.chatId
+	);
+	if (cachedChatIndex === -1) {
 		return;
 	}
-
-	const cachedChat = chats[cacheChatIndex];
-	const cacheChatCopy = {...cachedChat};
-	cacheChatCopy.latestMessage = message;
-	chats[cacheChatIndex] = cacheChatCopy;
+	const cachedChat = chats[cachedChatIndex];
+	const cachedChatCopy = { ...cachedChat };
+	cachedChatCopy.latestMessage = message;
+	chats[cachedChatIndex] = cachedChatCopy;
+	cache.writeQuery({
+		query: getChatsDocuments,
+		data: {
+			chats,
+		},
+	});
 };
