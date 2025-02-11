@@ -6,11 +6,13 @@ const getMeDocument = graphql(`
 			me {
 					_id
 					email
+					username
 			}
 	}
 `);
 
 const useGetMe = () => {
+	// @ts-ignore
 	return useQuery(getMeDocument);
 }
 export default useGetMe;

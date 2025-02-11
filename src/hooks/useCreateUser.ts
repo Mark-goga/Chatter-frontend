@@ -6,12 +6,14 @@ const createuserDocument = graphql(`
         createUser(createUserInput: $createUserInput) {
             _id
             email
+            username
         }
     }
 `);
 
 const useCreateUser = () => {
-  return useMutation(createuserDocument);
+  // @ts-ignore
+    return useMutation(createuserDocument);
 };
 
 export { useCreateUser };

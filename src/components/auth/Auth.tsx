@@ -5,21 +5,22 @@ import {useNavigate} from "react-router-dom";
 import useGetMe from "../../hooks/useGetMe";
 import AuthSvg from "./AuthSvg";
 import ErrorValidation from "../ErrorValidation";
+import AuthInputWrapper from "./AuthInputWrapper";
+import AuthInput from "./AuthInput";
 
 interface AuthProps {
 	submitLabel: string;
 	onSubmit: (cred: { email: string; password: string }) => Promise<void>;
 	children: React.ReactNode;
+	extraFields?: React.ReactNode[];
 	error?: string;
 }
 
-const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
+const Auth = ({onSubmit, submitLabel, children, error, extraFields}: AuthProps) => {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const navigate = useNavigate();
 	const { data } = useGetMe();
-
-	const inputStyle = 'w-full p-3 pl-9 bg-secondary border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent';
 
 	useEffect(() => {
 		if (data) {
@@ -31,29 +32,31 @@ const Auth = ({ onSubmit, submitLabel, children, error }: AuthProps) => {
 		<div
 			className="flex h-screen-minus-90 flex-col max-w-3xl w-[70%] md:w-[50%] xl:w-[30%] mx-auto justify-center text-text">
 
-			<p className='ml-3 mb-1'>Email</p>
-			<div className='relative mb-4'>
+			<AuthInputWrapper title={'Email'}>
 				<AuthSvg><MdOutlineMailOutline /></AuthSvg>
-				<input
-					type="email"
-					placeholder="youremail@example.com"
+				<AuthInput
+					type={"email"}
 					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					className={`${inputStyle}`}
-				/>
-			</div>
+					placeholder={"youremail@example.com"}
+					handleChange={(e) => setEmail(e.target.value)} />
+			</AuthInputWrapper>
 
-			<p className='ml-3 mb-1'>Password</p>
-			<div className='relative mb-4'>
+			{extraFields &&
+				(<>
+					<AuthInputWrapper title={'Name'}>
+						{extraFields}
+					</AuthInputWrapper>
+				</>)}
+
+			<AuthInputWrapper title={'password'}>
 				<AuthSvg ><RiLockPasswordLine /></AuthSvg>
-				<input
-					type="password"
-					placeholder="Enter your password"
+				<AuthInput
+					type={"password"}
 					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					className={`${inputStyle}`}
-				/>
-			</div>
+					placeholder={"Enter your password"}
+					handleChange={(e) => setPassword(e.target.value)} />
+			</AuthInputWrapper>
+
 				<ErrorValidation error={error} />
 				<button
 					onClick={() => onSubmit({email, password})}

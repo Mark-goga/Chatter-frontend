@@ -21,7 +21,7 @@ function FriendList({isChatOpen, openChat}: Props) {
 			<AddButton />
 			<div className="divide-y my-2 divide-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-transparent scrollbar-thumb-rounded-full hover:scrollbar-thumb-scrollbarHover">
 				{chats.map((chats) => (
-					<FriendsListItem key={chats._id} name={chats.name} _id={chats._id} isSelected={chatId === chats._id} openChat={openChat} />
+					<FriendsListItem key={chats._id} isSelected={chatId === chats._id} openChat={openChat} chat={chats} />
 				)).reverse()}
 			</div>
 		</div>

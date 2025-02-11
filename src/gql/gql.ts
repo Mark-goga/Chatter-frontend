@@ -14,14 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n    fragment ChatFragment on Chat {\n        _id\n        userId\n        isPrivate\n        userIds\n        name\n    }\n": types.ChatFragmentFragmentDoc,
-    "\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        userId,\n        chatId,\n    }\n": types.MessageFragmentFragmentDoc,
+    "\n    fragment ChatFragment on Chat {\n        _id,\n        name,\n        latestMessage {\n           ...MessageFragment \n        },\n    }\n": types.ChatFragmentFragmentDoc,
+    "\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        user {\n            _id,\n            email,\n            username,\n        },\n        chatId,\n    }\n": types.MessageFragmentFragmentDoc,
     "\n\tmutation CreateChat($createChatInput: CreateChatInput!) {\n\t\tcreateChat(createChatInput: $createChatInput) {\n\t\t\t\t...ChatFragment\n    }\n\t}\n": types.CreateChatDocument,
     "\n\tmutation CreateMessage($createMessageInput: CreateMessageInput!) {\n\t\t\tcreateMessage(createMessageInput: $createMessageInput) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.CreateMessageDocument,
-    "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n": types.CreateUserDocument,
+    "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n            username\n        }\n    }\n": types.CreateUserDocument,
     "\n\tquery chat($_id: String!) {\n\t\t\tchat(_id: $_id) {\n\t\t\t\t\t...ChatFragment\n\t\t\t}\n\t}\n": types.ChatDocument,
     "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n": types.ChatsDocument,
-    "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t}\n\t}\n": types.MeDocument,
+    "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t\t\tusername\n\t\t\t}\n\t}\n": types.MeDocument,
     "\n\tquery Messages($chatId: String!) {\n\t\tmessages(chatId: $chatId) {\n\t\t\t...MessageFragment\n\t\t}\n\t}\n": types.MessagesDocument,
     "\n\tsubscription messageCreated($chatId: String!) {\n\t\t\tmessageCreated(chatId: $chatId) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.MessageCreatedDocument,
 };
@@ -43,11 +43,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    fragment ChatFragment on Chat {\n        _id\n        userId\n        isPrivate\n        userIds\n        name\n    }\n"): (typeof documents)["\n    fragment ChatFragment on Chat {\n        _id\n        userId\n        isPrivate\n        userIds\n        name\n    }\n"];
+export function graphql(source: "\n    fragment ChatFragment on Chat {\n        _id,\n        name,\n        latestMessage {\n           ...MessageFragment \n        },\n    }\n"): (typeof documents)["\n    fragment ChatFragment on Chat {\n        _id,\n        name,\n        latestMessage {\n           ...MessageFragment \n        },\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        userId,\n        chatId,\n    }\n"): (typeof documents)["\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        userId,\n        chatId,\n    }\n"];
+export function graphql(source: "\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        user {\n            _id,\n            email,\n            username,\n        },\n        chatId,\n    }\n"): (typeof documents)["\n    fragment MessageFragment on Message {\n        _id,\n        content,\n        createdAt,\n        user {\n            _id,\n            email,\n            username,\n        },\n        chatId,\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -59,7 +59,7 @@ export function graphql(source: "\n\tmutation CreateMessage($createMessageInput:
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n"): (typeof documents)["\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n        }\n    }\n"];
+export function graphql(source: "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n            username\n        }\n    }\n"): (typeof documents)["\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n            username\n        }\n    }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -71,7 +71,7 @@ export function graphql(source: "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ..
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t}\n\t}\n"];
+export function graphql(source: "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t\t\tusername\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t\t\tusername\n\t\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

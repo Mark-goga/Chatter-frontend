@@ -22,7 +22,7 @@ function Settings({setting, userPhoto}: Props) {
 	const {isOpen, setIsOpen} = useClickOutSide(settingsRef, modalRef);
 	const {logout} = useLogout();
 	const {data} = useGetMe();
-	const userEmail = data?.me.email;
+	const username = data?.me.username;
 
 	const handleLogout = async () => {
 		try {
@@ -41,14 +41,14 @@ function Settings({setting, userPhoto}: Props) {
 				className="rounded-full cursor-pointer size-full"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				<UserProfile avatar={userPhoto} name={userEmail ? userEmail : 'Avatar'} />
+				<UserProfile avatar={userPhoto} name={username ? username : 'Avatar'} />
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen} time={200}>
 				<DropMenu ref={modalRef} isOpen={isOpen} additionalStyle={'top-full right-1/4'}>
-					<ListItem item={setting} func={() => {
+					<ListItem item={setting} func={async () => {
 						setIsOpen(false);
-						handleLogout()
+						await handleLogout()
 					}}/>
 				</DropMenu>
 			</IsModalOpen>

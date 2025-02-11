@@ -1,9 +1,12 @@
 import {Link} from 'react-router-dom';
 import Auth from './Auth';
 import {useCreateUser} from '../../hooks/useCreateUser';
-import {useState} from "react";
+import React, {useState} from "react";
 import {extractErrorMessage} from "../../utils/errors";
 import useLogin from "../../hooks/useLogin";
+import AuthInput from "./AuthInput";
+import AuthSvg from "./AuthSvg";
+import {MdOutlineDriveFileRenameOutline} from "react-icons/md";
 
 interface SignupRequest {
   email: string;
@@ -12,6 +15,7 @@ interface SignupRequest {
 
 const Signup = () => {
   const [createUser] = useCreateUser();
+  const [username, setUsername] = useState<string>('');
   const [error, setError] = useState<string>('');
   const {login} = useLogin();
 
@@ -22,6 +26,7 @@ const Signup = () => {
           createUserInput: {
             email,
             password,
+            username,
           },
         },
       });
@@ -38,9 +43,21 @@ const Signup = () => {
   };
 
   return (
-    <Auth onSubmit={handleSubmit}
-          submitLabel={'Sign up'}
-          error={error}
+    <Auth
+      onSubmit={handleSubmit}
+      submitLabel={'Sign up'}
+      error={error}
+      extraFields={[
+        <>
+          <AuthSvg><MdOutlineDriveFileRenameOutline/></AuthSvg>
+          <AuthInput
+            value={username}
+            placeholder={'enter your username'}
+            type={'text'}
+            handleChange={(e) => setUsername(e.target.value)}
+          />
+        </>
+      ]}
     >
       <Link to={'/login'} className='text-text text-center underline'>
         <p>login</p>
