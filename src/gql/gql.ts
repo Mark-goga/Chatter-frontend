@@ -23,7 +23,7 @@ const documents = {
     "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n": types.ChatsDocument,
     "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t\t\tusername\n\t\t\t}\n\t}\n": types.MeDocument,
     "\n\tquery Messages($chatId: String!) {\n\t\tmessages(chatId: $chatId) {\n\t\t\t...MessageFragment\n\t\t}\n\t}\n": types.MessagesDocument,
-    "\n\tsubscription messageCreated($chatId: String!) {\n\t\t\tmessageCreated(chatId: $chatId) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.MessageCreatedDocument,
+    "\n\tsubscription messageCreated($chatIds: [String!]!) {\n\t\t\tmessageCreated(chatIds: $chatIds) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.MessageCreatedDocument,
 };
 
 /**
@@ -79,7 +79,7 @@ export function graphql(source: "\n\tquery Messages($chatId: String!) {\n\t\tmes
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tsubscription messageCreated($chatId: String!) {\n\t\t\tmessageCreated(chatId: $chatId) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tsubscription messageCreated($chatId: String!) {\n\t\t\tmessageCreated(chatId: $chatId) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n"];
+export function graphql(source: "\n\tsubscription messageCreated($chatIds: [String!]!) {\n\t\t\tmessageCreated(chatIds: $chatIds) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tsubscription messageCreated($chatIds: [String!]!) {\n\t\t\tmessageCreated(chatIds: $chatIds) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -7,7 +7,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {useGetMessages} from "../../hooks/useGetMessages";
 import MessageList from "./MessageList";
 import {IoArrowBackSharp} from "react-icons/io5";
-import useMessageCreated from "../../hooks/useMessageCreated";
 
 function Chat() {
 	const divRef = useRef<HTMLDivElement>(null);
@@ -22,8 +21,6 @@ function Chat() {
 	const [createMessage] = useCreateMessage();
 
 	const { data: messages } = useGetMessages({ chatId });
-
-	useMessageCreated({ chatId });
 
 	const scrollToBottom = () => divRef.current?.scrollIntoView();
 
