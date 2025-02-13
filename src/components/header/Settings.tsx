@@ -9,6 +9,7 @@ import {snackVar} from "../../constants/snack";
 import {UNKNOWN_ERROR_MESSAGE} from "../../constants/errors";
 import UserProfile from "../UserProfile";
 import useGetMe from "../../hooks/useGetMe";
+import router from "../Routes";
 
 interface Props {
 	setting: string;
@@ -45,10 +46,14 @@ function Settings({setting, userPhoto}: Props) {
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen} time={200}>
-				<DropMenu ref={modalRef} isOpen={isOpen} additionalStyle={'top-full right-1/4'}>
+				<DropMenu ref={modalRef} isOpen={isOpen} additionalStyle={'top-[120%] right-1/4'}>
 					<ListItem item={setting} func={async () => {
 						setIsOpen(false);
 						await handleLogout()
+					}}/>
+					<ListItem item={'profile'} func={async () => {
+						setIsOpen(false);
+						router.navigate('/profile');
 					}}/>
 				</DropMenu>
 			</IsModalOpen>

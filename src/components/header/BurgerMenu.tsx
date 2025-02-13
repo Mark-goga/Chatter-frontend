@@ -24,7 +24,7 @@ function BurgerMenu({pages}: Props) {
 			</div>
 
 			<IsModalOpen isModalOpen={isOpen} time={200}>
-				<DropMenu isOpen={isOpen} ref={modalRef} additionalStyle={`top-full left-1/4`}>
+				<DropMenu isOpen={isOpen} ref={modalRef} additionalStyle={`top-[120%] left-1/4`}>
 					{pages.map((page) => (
 						<ListItem key={page.title} item={page} func={() => {
 							setIsOpen(false);
