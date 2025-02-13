@@ -20,7 +20,7 @@ const documents = {
     "\n\tmutation CreateMessage($createMessageInput: CreateMessageInput!) {\n\t\t\tcreateMessage(createMessageInput: $createMessageInput) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.CreateMessageDocument,
     "\n    mutation CreateUser($createUserInput: CreateUserInput!) {\n        createUser(createUserInput: $createUserInput) {\n            _id\n            email\n            username\n        }\n    }\n": types.CreateUserDocument,
     "\n\tquery chat($_id: String!) {\n\t\t\tchat(_id: $_id) {\n\t\t\t\t\t...ChatFragment\n\t\t\t}\n\t}\n": types.ChatDocument,
-    "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n": types.ChatsDocument,
+    "\n\tquery Chats($skip: Int!, $limit: Int!) {\n\t\t\tchats(skip: $skip, limit: $limit) {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n": types.ChatsDocument,
     "\n\tquery Me {\n\t\t\tme {\n\t\t\t\t\t_id\n\t\t\t\t\temail\n\t\t\t\t\tusername\n\t\t\t}\n\t}\n": types.MeDocument,
     "\n\tquery Messages($chatId: String!) {\n\t\tmessages(chatId: $chatId) {\n\t\t\t...MessageFragment\n\t\t}\n\t}\n": types.MessagesDocument,
     "\n\tsubscription messageCreated($chatIds: [String!]!) {\n\t\t\tmessageCreated(chatIds: $chatIds) {\n\t\t\t\t\t...MessageFragment\n\t\t\t}\n\t}\n": types.MessageCreatedDocument,
@@ -67,7 +67,7 @@ export function graphql(source: "\n\tquery chat($_id: String!) {\n\t\t\tchat(_id
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tquery Chats {\n\t\t\tchats {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n"];
+export function graphql(source: "\n\tquery Chats($skip: Int!, $limit: Int!) {\n\t\t\tchats(skip: $skip, limit: $limit) {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n"): (typeof documents)["\n\tquery Chats($skip: Int!, $limit: Int!) {\n\t\t\tchats(skip: $skip, limit: $limit) {\n\t\t\t\t\t ...ChatFragment\n\t\t\t}\n\t}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
