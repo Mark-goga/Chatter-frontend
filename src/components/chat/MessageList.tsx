@@ -17,7 +17,7 @@ const MessageList = forwardRef<HTMLDivElement, Props>(({messages, chatId}, divRe
 	const {fetchMore} = useGetMessages({chatId, skip: 0, limit: PAGE_SIZE});
 
 	return (
-		<div className="m-4 scrollbar overflow-auto scrollbar-thumb-scrollbar scrollbar-track-transparent">
+		<div className="m-4 scrollbar overflow-y-auto overflow-x-hidden scrollbar-thumb-scrollbar scrollbar-track-transparent">
 			<InfiniteScroll
 				pageStart={0}
 				isReverse={true}

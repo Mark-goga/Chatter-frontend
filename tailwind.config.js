@@ -27,8 +27,8 @@ module.exports = {
         modalClose: 'modalClose 0.1s ease-out',
       },
       screens: {
-        "sm-max": { max: "640px" },
-        "sm-min": { min: "640px" },
+        "sm-max": { max: "800px" },
+        "sm-min": { min: "800px" },
         desktop: "900px",
         tablet: {max: "900px"},
         '360': {min: '360px'},
