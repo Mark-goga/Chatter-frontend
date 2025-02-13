@@ -7,6 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useGetMessages} from "../../hooks/useGetMessages";
 import MessageList from "./MessageList";
 import {IoArrowBackSharp} from "react-icons/io5";
+import {PAGE_SIZE} from "../../constants/page-size";
 
 function Chat() {
 	const divRef = useRef<HTMLDivElement>(null);
@@ -20,7 +21,7 @@ function Chat() {
 
 	const [createMessage] = useCreateMessage();
 
-	const { data: messages } = useGetMessages({ chatId });
+	const {data: messages} = useGetMessages({chatId, skip: 0, limit: PAGE_SIZE});
 
 	const scrollToBottom = () => divRef.current?.scrollIntoView();
 
@@ -34,8 +35,10 @@ function Chat() {
 	}
 
 	useEffect(() => {
+		if (messages?.messages && messages.messages.length <= PAGE_SIZE) {
+			scrollToBottom();
+		}
 		setMessage("");
-		scrollToBottom();
 	}, [messages, params]);
 
 	return (
@@ -49,12 +52,14 @@ function Chat() {
 						</div>
 						<h1 className="text-lg text-text font-semibold">{chat?.name}</h1>
 					</div>
-					{messages && (<MessageList messages={[...messages.messages].sort(
-						(messageA, messageB) => (
-							new Date(messageA.createdAt).getTime() -
-							new Date(messageB.createdAt).getTime()
-						)
-					)} ref={divRef}/>)}
+					{messages && (<MessageList
+						chatId={chatId}
+						messages={[...messages.messages].sort(
+							(messageA, messageB) => (
+								new Date(messageA.createdAt).getTime() -
+								new Date(messageB.createdAt).getTime()
+							)
+						)} ref={divRef}/>)}
 					<ChatInput onChange={handleChange} onSubmit={handleSubmit} value={message}/>
 				</div>
 			)}
